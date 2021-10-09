@@ -17,3 +17,5 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.0
+URL: https://github.com/emptyfield-ds/coursedeployr
+BugReports: https://github.com/emptyfield-ds/coursedeployr/issues
