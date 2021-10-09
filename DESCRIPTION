@@ -1,5 +1,5 @@
-Package: coursedeployr
-Title: Deploy Teaching Material by Malcolm Barrett
+Package: shunyata
+Title: Deploy Empty Field Teaching Material
 Version: 0.0.1
 Authors@R: 
     person("Malcolm", "Barrett", , "malcolmbarrett@gmail.com", role = c("aut", "cre"),
@@ -16,6 +16,6 @@ Remotes:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.0
-URL: https://github.com/emptyfield-ds/coursedeployr
-BugReports: https://github.com/emptyfield-ds/coursedeployr/issues
+RoxygenNote: 7.1.2
+URL: https://github.com/emptyfield-ds/shunyata
+BugReports: https://github.com/emptyfield-ds/shunyata/issues

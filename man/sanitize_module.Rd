@@ -6,7 +6,7 @@
 \usage{
 sanitize_module(
   module,
-  new_path,
+  new_path = NULL,
   rm_files = c("theme.css", "kakashi.css", "solutions.Rmd"),
   rm_dir = c("img", "libs"),
   overwrite = FALSE

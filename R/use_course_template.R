@@ -12,6 +12,6 @@ use_course_template <- function(template, save_as = template, data = list(), ign
     data = data,
     ignore = ignore,
     open = open,
-    package = "coursedeployr"
+    package = "shunyata"
   )
 }

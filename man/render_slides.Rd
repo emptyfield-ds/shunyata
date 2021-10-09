@@ -4,7 +4,7 @@
 \alias{render_slides}
 \title{Title}
 \usage{
-render_slides(dir, render = TRUE)
+render_slides(dir, rmd_name = NULL, render = TRUE)
 }
 \arguments{
 \item{render}{}
