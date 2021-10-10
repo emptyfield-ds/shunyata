@@ -1,22 +1,37 @@
+sync_module <- function(.dir) {
+  module <- path_file(.dir)
+  temp_dir <- fs::path_temp(.dir)
 
-set_remote <- function(module) {
-  module <- glue::glue("https://github.com/emptyfield-ds/{module}.git")
-  # TODO: check if exists
-  gert::git_remote_add(module)
+  clone_module(module, temp_dir)
+  sanitize_module(.dir, new_path = temp_dir, overwrite = TRUE)
+  commit_changes(temp_dir)
+
+  invisible(temp_dir)
 }
 
-force_push <- function() {
-  msg <- glue("Render module: {Sys.time()}")
-  usethis::ui_done("Force pushing")
-  gert::git_add(".")
-  gert::git_commit(msg)
-  gert::git_push(force = TRUE)
-  code_for_cloud <- glue(
-    "git fetch
-    git reset origin/{usethis::git_branch_default()} --hard
-    git pull
-    "
+clone_module <- function(module, temp_dir) {
+  gert::git_clone(
+    glue::glue("https://github.com/emptyfield-ds/{module}.git"),
+    path = temp_dir
   )
-  usethis::ui_todo("Update git on RStudio Cloud")
-  usethis::ui_code_block(code_for_cloud)
+}
+
+commit_changes <- function(repo) {
+  gert::git_add(".", repo = repo)
+  gert::git_commit(glue::glue("Automatic update ({Sys.Date()})"), repo = repo)
+  gert::git_push(repo = repo)
+  remind_pull_cloud(repo)
+}
+
+remind_pull_cloud <- function() {
+  query <- glue::glue("/repos/emptyfield-ds/{module}")
+  rstudio_cloud_url <- gh::gh(query)$homepage
+  if (is.null(rstudio_cloud_url)) {
+    return(invisible())
+  }
+
+  usethis::ui_todo(
+    "Pull changes on RStudio Cloud: \\
+    {usethis::ui_value(rstudio_cloud_url)}"
+  )
 }

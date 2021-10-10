@@ -25,11 +25,10 @@ render_slides <- function(dir, rmd_name = NULL, render = TRUE) {
   }
 
   html_name <- normalizePath(path_ext_set(rmd_name, ".html"))
-  file_name <- paste0("file://", html_name)
 
   usethis::ui_done("Rendering {usethis::ui_path(path(dir, 'slides.pdf'))}")
   pdf_name <- suppressMessages(
-    xaringanBuilder::build_pdf(file_name, path(dir, "slides.pdf"))
+    xaringanBuilder::build_pdf(html_name, path(dir, "slides.pdf"))
   )
 
   invisible(pdf_name)
