@@ -25,6 +25,11 @@ sanitize_module(
 \item{rm_dir}{Which directories to remove}
 
 \item{overwrite}{Overwrite the sanitized module if it already exists?}
+
+\item{build_slides}{Logical. Render the slides?}
+
+\item{rmd_name}{The name of Rmd file. By default, assumes that it is the same
+as \code{dir} with a \code{.Rmd} extension.}
 }
 \value{
 invisibly, the path of the new module

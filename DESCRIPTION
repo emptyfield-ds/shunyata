@@ -12,6 +12,7 @@ BugReports: https://github.com/emptyfield-ds/shunyata/issues
 Imports: 
     fs,
     gert,
+    gh,
     glue,
     purrr,
     rlang,

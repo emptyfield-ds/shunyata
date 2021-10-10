@@ -7,6 +7,8 @@
 #' @param rm_files Which files to remove
 #' @param rm_dir Which directories to remove
 #' @param overwrite Overwrite the sanitized module if it already exists?
+#' @param build_slides Logical. Render the slides?
+#' @inheritParams render_slides
 #'
 #' @return invisibly, the path of the new module
 #' @export
@@ -19,7 +21,7 @@ sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "
 
   if (build_slides) {
     if (is.null(rmd_name)) rmd_name <- path_ext_set(path(temp_module, path_file(module)), "Rmd")
-    render_slides(temp_module, rmd_name, ...)
+    render_slides(temp_module, rmd_name = rmd_name)
   }
 
   usethis::ui_done("Sanitizing {usethis::ui_path(module)}")

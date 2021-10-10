@@ -20,10 +20,11 @@ commit_changes <- function(repo) {
   gert::git_add(".", repo = repo)
   gert::git_commit(glue::glue("Automatic update ({Sys.Date()})"), repo = repo)
   gert::git_push(repo = repo)
-  remind_pull_cloud(repo)
+  remind_pull_cloud(repo = repo)
 }
 
-remind_pull_cloud <- function() {
+remind_pull_cloud <- function(repo) {
+  module <- path_file(repo)
   query <- glue::glue("/repos/emptyfield-ds/{module}")
   rstudio_cloud_url <- gh::gh(query)$homepage
   if (is.null(rstudio_cloud_url)) {
