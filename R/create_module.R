@@ -12,28 +12,24 @@
 #' @return `module_dir`, invisibly.
 #' @export
 create_module <- function(module_dir, module_title, module_subtitle = "", include_exercises = TRUE, include_solutions = TRUE, include_img = TRUE) {
-  if (fs::dir_exists(module_dir)) {
+  if (dir_exists(module_dir)) {
     if (usethis::ui_yeah("Delete directory {module_dir}?")) {
-      fs::dir_delete(module_dir)
+      dir_delete(module_dir)
     } else {
       return(invisible(module_dir))
     }
   }
 
   usethis::ui_done("Creating {usethis::ui_path(module_dir)}")
-  fs::dir_create(module_dir)
+  dir_create(module_dir)
 
   module_data <- list(module_title = module_title)
-  use_course_template("slides.Rmd", file.path(module_dir, paste0(module_dir, ".Rmd")), data = c(module_data, module_subtitle = module_subtitle))
-  if (include_exercises) use_course_template("exercises.Rmd", file.path(module_dir, "exercises.Rmd"), data = module_data)
-  if (include_solutions) use_course_template("solutions.Rmd", file.path(module_dir, "solutions.Rmd"), data = module_data)
-  if (include_img) fs::dir_create(file.path(module_dir, "img"))
+  use_course_template("slides.Rmd", path(module_dir, paste0(module_dir, ".Rmd")), data = c(module_data, module_subtitle = module_subtitle))
+  if (include_exercises) use_course_template("exercises.Rmd", path(module_dir, "exercises.Rmd"), data = module_data)
+  if (include_solutions) use_course_template("solutions.Rmd", path(module_dir, "solutions.Rmd"), data = module_data)
+  if (include_img) dir_create(path(module_dir, "img"))
 
   invisible(module_dir)
-}
-
-zip_modules <- function() {
-
 }
 
 #' Sanitize module
@@ -50,14 +46,14 @@ zip_modules <- function() {
 #' @export
 sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "kakashi.css", "solutions.Rmd"), rm_dir = c("img", "libs"), overwrite = FALSE) {
   usethis::ui_done("Cloning {usethis::ui_path(module)}")
-  dir <- fs::file_temp()
-  on.exit(unlink(dir))
-  if (!fs::dir_exists(dir)) fs::dir_create(dir)
-  temp_module <- fs::dir_copy(module, dir, overwrite = overwrite)
+  dir <- file_temp("sanitize_")
+  withr::defer(dir_delete(dir))
+  if (!dir_exists(dir)) dir_create(dir)
+  temp_module <- dir_copy(module, dir, overwrite = overwrite)
 
   usethis::ui_done("Sanitizing {usethis::ui_path(module)}")
   # remove files
-  clean_module <- fs::path_file(module)
+  clean_module <- path_file(module)
   rm_files <- c(paste0(clean_module, ".Rmd"), paste0(clean_module, ".html"), rm_files)
   rm_files <- stringr::str_remove(rm_files, "^[0-9]+-")
   purrr::walk(rm_files, file_delete_safe, temp_module)
@@ -66,33 +62,33 @@ sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "
   purrr::walk(rm_dir, dir_delete_safe, temp_module)
 
   if (has_dehydrated_rproj(temp_module)) {
-    rproj_file <- fs::path_file(fs::dir_ls(temp_module, regexp = "dehydrated_Rproj$"))
+    rproj_file <- path_file(dir_ls(temp_module, regexp = "dehydrated_Rproj$"))
     usethis::ui_done("Rehydrating {usethis::ui_path(rproj_file)}")
     rehydrate_rproj(temp_module)
   }
 
-  new_module_path <- file.path(new_path, module)
+  new_module_path <- path(new_path, module)
   usethis::ui_done("Copying to {usethis::ui_path(new_module_path)}")
-  if (fs::dir_exists(new_path) && overwrite) fs::dir_delete(new_path)
-  fs::dir_copy(temp_module, new_path, overwrite = overwrite)
+  if (dir_exists(new_path) && overwrite) dir_delete(new_path)
+  dir_copy(temp_module, new_path, overwrite = overwrite)
 
 
   invisible(new_module_path)
 }
 
 file_delete_safe <- function(path, dir) {
-  if (fs::file_exists(fs::path(dir, path))) {
+  if (file_exists(path(dir, path))) {
     usethis::ui_done("Removing {usethis::ui_path(path)}")
-    fs::file_delete(fs::path(dir, path))
+    file_delete(path(dir, path))
   }
 
   invisible(path)
 }
 
 dir_delete_safe <- function(path, dir) {
-  if (fs::dir_exists(fs::path(dir, path))) {
+  if (dir_exists(path(dir, path))) {
     usethis::ui_done("Removing {usethis::ui_path(path)}")
-    fs::dir_delete(fs::path(dir, path))
+    dir_delete(path(dir, path))
   }
 
   invisible(path)
