@@ -12,7 +12,7 @@
 #'
 #' @return invisibly, the path of the new module
 #' @export
-sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "kakashi.css", "solutions.Rmd"), rm_dir = c("img", "libs"), overwrite = FALSE, build_slides = TRUE, rmd_name = NULL, ...) {
+sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "kakashi.css", "solutions.Rmd"), rm_dir = c("img", "libs"), overwrite = FALSE, build_slides = TRUE, rmd_name = NULL) {
   usethis::ui_done("Cloning {usethis::ui_path(module)}")
   dir <- file_temp("sanitize_")
   withr::defer(dir_delete(dir))
