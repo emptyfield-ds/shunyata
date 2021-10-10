@@ -2,10 +2,10 @@
 
 export(create_module)
 export(dehydrate_rproj)
+export(open_r_pkg_module)
 export(rehydrate_rproj)
 export(render_slides)
 export(sanitize_module)
-export(temp_pkg)
 export(use_course_template)
 import(fs)
 import(rlang)
