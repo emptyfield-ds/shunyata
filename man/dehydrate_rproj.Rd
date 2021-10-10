@@ -10,7 +10,7 @@ dehydrate_rproj(dir)
 rehydrate_rproj(dir)
 }
 \arguments{
-\item{x}{the Rproj file}
+\item{dir}{The project directory}
 }
 \value{
 a filename of either \code{.Rproj} or \code{.dehydrated_Rproj}

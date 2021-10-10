@@ -2,16 +2,21 @@
 % Please edit documentation in R/render_slides.R
 \name{render_slides}
 \alias{render_slides}
-\title{Title}
+\title{Render Module Slides}
 \usage{
 render_slides(dir, rmd_name = NULL, render = TRUE)
 }
 \arguments{
-\item{render}{}
+\item{dir}{The directory where the module is located}
+
+\item{rmd_name}{The name of Rmd file. By default, assumes that it is the same
+as \code{dir} with a \code{.Rmd} extension.}
+
+\item{render}{Logical. Knit the Rmd file?}
 }
 \value{
-
+Invisibly, the path to the rendered PDF
 }
 \description{
-Title
+Render Module Slides
 }
