@@ -1,11 +1,12 @@
-#' Title
+#' Sync a module to GitHub
 #'
-#' @param .dir
+#' `sync_module()` takes a raw teaching module, renders slides, sanitizes, and
+#' syncs with the existing GitHub repo for the module. Use with
+#' [`path_warehouse()`].
 #'
-#' @return
+#' @param .dir The path to the module
+#'
 #' @export
-#'
-#' @examples
 sync_module <- function(.dir) {
   check_exists_on_gh(path_file(.dir))
   temp_dir <- fs::path_temp(path_file(.dir))
@@ -18,14 +19,18 @@ sync_module <- function(.dir) {
   invisible()
 }
 
-#' Title
+#' Write a path to the teaching warehouse
 #'
-#' @param ...
+#' `path_warehouse()` uses the `shunyata.teaching_warehouse` option to assemble
+#' an path to a given module.
 #'
-#' @return
+#' @param ... Additional path details passed to [`fs::path()`].
+#'
+#' @return A path
 #' @export
 #'
 #' @examples
+#' path_warehouse("purrr_basics")
 path_warehouse <- function(...) {
   path(getOption("shunyata.teaching_warehouse"), ...)
 }

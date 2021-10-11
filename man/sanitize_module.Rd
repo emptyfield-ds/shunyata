@@ -11,8 +11,7 @@ sanitize_module(
   rm_dir = c("img", "libs"),
   overwrite = FALSE,
   build_slides = TRUE,
-  rmd_name = NULL,
-  ...
+  rmd_name = NULL
 )
 }
 \arguments{
