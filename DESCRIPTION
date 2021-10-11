@@ -15,7 +15,6 @@ Imports:
     gh,
     glue,
     purrr,
-    rlang,
     rmarkdown,
     stringr,
     usethis,
