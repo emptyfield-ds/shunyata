@@ -6,7 +6,7 @@
 #'
 #' @return Invisibly, the temporary directory where the module package has been copied
 #' @export
-open_r_pkg_module <- function(path = getOption("shunyata.teaching_warehouse", "."), module = c("setup", "write_code", "document", "test", "teach", "add_files"), open = interactive()) {
+open_r_pkg_module <- function(path = path_warehouse(), module = c("setup", "write_code", "document", "test", "teach", "add_files"), open = interactive()) {
   module <- match.arg(module)
   module <- paste0("r_packages_", module)
   dir <- file_temp()

@@ -5,7 +5,7 @@
 \title{Copy a teaching package to a temporary directory and open it in RStudio}
 \usage{
 open_r_pkg_module(
-  path = getOption("shunyata.teaching_warehouse", "."),
+  path = path_warehouse(),
   module = c("setup", "write_code", "document", "test", "teach", "add_files"),
   open = interactive()
 )
