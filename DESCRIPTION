@@ -10,23 +10,27 @@ License: MIT + file LICENSE
 URL: https://github.com/emptyfield-ds/shunyata
 BugReports: https://github.com/emptyfield-ds/shunyata/issues
 Imports: 
+    dplyr,
     fs,
     gert,
     gh,
     glue,
+    magrittr,
     purrr,
     renv,
     rmarkdown,
+    rscloud (>= 0.0.0.9002),
     stringr,
     usethis,
     utils,
     withr,
     xaringanBuilder (>= 0.0.9)
+Suggests: 
+    testthat (>= 3.0.0)
 Remotes: 
-    jhelvy/xaringanBuilder
+    jhelvy/xaringanBuilder,
+    rstudio/rscloud
+Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Suggests: 
-    testthat (>= 3.0.0)
-Config/testthat/edition: 3

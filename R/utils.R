@@ -1,0 +1,6 @@
+utils::globalVariables(
+  c(
+    ".data",
+    "."
+  )
+)
