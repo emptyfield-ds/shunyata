@@ -16,7 +16,7 @@ render_slides <- function(dir, rmd_name = NULL, render = TRUE) {
   }
   if (is.null(rmd_name)) rmd_name <- path(dir, paste0(dir, ".Rmd"))
   if (render) {
-    usethis::ui_done("Rendering {usethis::ui_path(rmd_name)}")
+    usethis::ui_done("Rendering {usethis::ui_path(path_file(rmd_name))}")
     suppressMessages(
       suppressWarnings(
         rmarkdown::render(rmd_name, quiet = TRUE, envir = new.env())
@@ -26,7 +26,7 @@ render_slides <- function(dir, rmd_name = NULL, render = TRUE) {
 
   html_name <- normalizePath(path_ext_set(rmd_name, ".html"))
 
-  usethis::ui_done("Rendering {usethis::ui_path(path(dir, 'slides.pdf'))}")
+  usethis::ui_done("Rendering {usethis::ui_path('slides.pdf')}")
   pdf_name <- suppressMessages(
     xaringanBuilder::build_pdf(html_name, path(dir, "slides.pdf"))
   )

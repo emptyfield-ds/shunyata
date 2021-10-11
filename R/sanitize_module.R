@@ -13,7 +13,7 @@
 #' @return invisibly, the path of the new module
 #' @export
 sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "kakashi.css", "solutions.Rmd"), rm_dir = c("img", "libs"), overwrite = FALSE, build_slides = TRUE, rmd_name = NULL) {
-  usethis::ui_done("Cloning {usethis::ui_path(module)}")
+  usethis::ui_done("Copying {usethis::ui_path(module)} to temporary directory")
   dir <- file_temp("sanitize_")
   withr::defer(dir_delete(dir))
   if (!dir_exists(dir)) dir_create(dir)
@@ -24,7 +24,7 @@ sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "
     render_slides(temp_module, rmd_name = rmd_name)
   }
 
-  usethis::ui_done("Sanitizing {usethis::ui_path(module)}")
+  usethis::ui_done("Sanitizing {usethis::ui_path(path_file(module))}")
 
   # remove files
   clean_module <- path_file(module)
