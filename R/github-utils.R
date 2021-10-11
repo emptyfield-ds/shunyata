@@ -22,3 +22,11 @@ check_exists_on_gh <- function(repo) {
   }
   invisible(TRUE)
 }
+
+check_no_gh_repo <- function(repo) {
+  found_it <- exists_on_gh(repo)
+  if (found_it) {
+    usethis::ui_stop("{usethis::ui_path(repo)} already exists on GitHub.")
+  }
+  invisible(TRUE)
+}
