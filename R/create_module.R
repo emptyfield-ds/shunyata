@@ -13,7 +13,8 @@
 #' @export
 create_module <- function(module_dir, module_title, module_subtitle = "", include_exercises = TRUE, include_solutions = TRUE, include_img = TRUE) {
   if (dir_exists(module_dir)) {
-    if (usethis::ui_yeah("Delete directory {module_dir}?")) {
+    usethis::ui_info("{usethis::ui_path(module_dir)} already exists")
+    if (usethis::ui_yeah("Delete directory?")) {
       dir_delete(module_dir)
     } else {
       return(invisible(module_dir))
@@ -22,12 +23,13 @@ create_module <- function(module_dir, module_title, module_subtitle = "", includ
 
   usethis::ui_done("Creating {usethis::ui_path(module_dir)}")
   dir_create(module_dir)
-
-  module_data <- list(module_title = module_title)
-  use_course_template("slides.Rmd", path(module_dir, paste0(module_dir, ".Rmd")), data = c(module_data, module_subtitle = module_subtitle))
-  if (include_exercises) use_course_template("exercises.Rmd", path(module_dir, "exercises.Rmd"), data = module_data)
-  if (include_solutions) use_course_template("solutions.Rmd", path(module_dir, "solutions.Rmd"), data = module_data)
-  if (include_img) dir_create(path(module_dir, "img"))
+  usethis::with_project(path_dir(module_dir), {
+    module_data <- list(module_title = module_title)
+    use_course_template("slides.Rmd", path(path_file(module_dir), paste0(path_file(module_dir), ".Rmd")), data = c(module_data, module_subtitle = module_subtitle))
+    if (include_exercises) use_course_template("exercises.Rmd", path(path_file(module_dir), "exercises.Rmd"), data = module_data)
+    if (include_solutions) use_course_template("solutions.Rmd", path(path_file(module_dir), "solutions.Rmd"), data = module_data)
+    if (include_img) dir_create(path(path_file(module_dir), "img"))
+  }, force = TRUE)
 
   invisible(module_dir)
 }
