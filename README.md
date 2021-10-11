@@ -4,6 +4,8 @@
 # shunyata
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/emptyfield-ds/shunyata/workflows/R-CMD-check/badge.svg)](https://github.com/emptyfield-ds/shunyata/actions)
 <!-- badges: end -->
 
 The goal of shunyata is to easily deploy Empty Field course materials
