@@ -20,13 +20,13 @@ Imports:
     renv,
     rmarkdown,
     rscloud (>= 0.0.0.9002),
+    shiny,
     stringr,
+    testthat,
     usethis,
     utils,
     withr,
     xaringanBuilder (>= 0.0.9)
-Suggests: 
-    testthat (>= 3.0.0)
 Remotes: 
     jhelvy/xaringanBuilder,
     rstudio/rscloud
