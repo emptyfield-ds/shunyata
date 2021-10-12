@@ -68,6 +68,9 @@ remind_pull_cloud <- function(repo) {
     "Pull changes on RStudio Cloud: \\
     {usethis::ui_value(rstudio_cloud_url)}"
   )
+
+  utils::browseURL(rstudio_cloud_url)
+
   usethis::ui_todo(
     "Do you need to update {usethis::ui_value('emptyfield-ds/solutions')}?"
   )
