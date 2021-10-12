@@ -1,10 +1,12 @@
 #' Copy a teaching package to a temporary directory and open it in RStudio
 #'
-#' @param path The root path where the teaching material is
-#' @param module The R Package teaching module to open
+#' @param module The path to a local module or the name of a repo on
+#'   `emptyfile-ds`
+#' @param github Use the copy of the module on GitHub?
 #' @param open Open in RStudio?
 #'
-#' @return Invisibly, the temporary directory where the module package has been copied
+#' @return Invisibly, the temporary directory where the module package has been
+#'   copied
 #' @export
 open_temp_module <- function(module, github = TRUE, open = interactive()) {
   dir <- path_temp("temp_module", path_file(module))

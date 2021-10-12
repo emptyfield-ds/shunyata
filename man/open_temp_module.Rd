@@ -7,14 +7,16 @@
 open_temp_module(module, github = TRUE, open = interactive())
 }
 \arguments{
-\item{module}{The R Package teaching module to open}
+\item{module}{The path to a local module or the name of a repo on
+\code{emptyfile-ds}}
+
+\item{github}{Use the copy of the module on GitHub?}
 
 \item{open}{Open in RStudio?}
-
-\item{path}{The root path where the teaching material is}
 }
 \value{
-Invisibly, the temporary directory where the module package has been copied
+Invisibly, the temporary directory where the module package has been
+copied
 }
 \description{
 Copy a teaching package to a temporary directory and open it in RStudio
