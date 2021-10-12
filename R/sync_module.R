@@ -36,8 +36,6 @@ path_warehouse <- function(...) {
 }
 
 clone_module <- function(temp_dir) {
-  module <- path_file(temp_dir)
-
   usethis::ui_done("Cloning from GitHub")
   module <- path_file(temp_dir)
   suppressMessages(gert::git_clone(

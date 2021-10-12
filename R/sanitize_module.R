@@ -36,11 +36,7 @@ sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "
   rm_dir <- c(paste0(stringr::str_remove(clean_module, "^[0-9]+-"), "_files"), rm_dir)
   purrr::walk(rm_dir, dir_delete_safe, temp_module)
 
-  if (has_dehydrated_rproj(temp_module)) {
-    rproj_file <- path_file(dir_ls(temp_module, regexp = "dehydrated_Rproj$"))
-    usethis::ui_done("Rehydrating {usethis::ui_path(rproj_file)}")
-    rehydrate_rproj(temp_module)
-  }
+  handle_rstudio_proj(temp_module)
 
   if (!is.null(new_path)) {
     usethis::ui_done("Copying to {usethis::ui_path(new_path)}")
@@ -54,6 +50,23 @@ sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "
   }
 
   invisible(temp_module)
+}
+
+handle_rstudio_proj <- function(module_dir) {
+  if (has_dehydrated_rproj(module_dir)) {
+    rehydrate_rproj(module_dir)
+  } else if (!has_rproj(module_dir)) {
+    old_proj <- usethis::proj_set(module_dir, force = TRUE)
+    withr::defer(usethis::proj_set(old_proj))
+    usethis::use_rstudio()
+  }
+
+  invisible()
+}
+
+has_rproj <- function(module_dir) {
+  x <- dir_ls(module_dir, type = "file")
+  any(grepl("Rproj$", x, ignore.case = TRUE))
 }
 
 file_delete_safe <- function(path, dir) {

@@ -6,19 +6,23 @@
 #'
 #' @return Invisibly, the temporary directory where the module package has been copied
 #' @export
-open_r_pkg_module <- function(path = path_warehouse(), module = c("setup", "write_code", "document", "test", "teach", "add_files"), open = interactive()) {
-  module <- match.arg(module)
-  module <- paste0("r_packages_", module)
-  dir <- file_temp()
+open_temp_module <- function(module, github = TRUE, open = interactive()) {
+  dir <- path_temp("temp_module", path_file(module))
+  if (dir_exists(dir)) dir_delete(dir)
   dir_create(dir)
-  dir_copy(path(normalizePath(path), module), dir)
-  temp_pkg_dir <- path(dir, module)
+  if (github) {
+    module_dir <- clone_module(dir)
+  } else {
+    usethis::ui_done(
+      "Copying {usethis::ui_path(path_file(module))} to temporary directory"
+    )
+    module_dir <- dir_copy(path(module), dir)
+    handle_rstudio_proj(module_dir)
+  }
 
-  rehydrate_rproj(temp_pkg_dir)
+  if (open) usethis::proj_activate(module_dir)
 
-  if (open) usethis::proj_activate(temp_pkg_dir)
-
-  invisible(temp_pkg_dir)
+  invisible(module_dir)
 }
 
 #' Dehydrate and rehydrate rproj files for safe project hygiene
@@ -29,6 +33,7 @@ open_r_pkg_module <- function(path = path_warehouse(), module = c("setup", "writ
 #' @export
 dehydrate_rproj <- function(dir) {
   x <- dir_ls(dir, regexp = "Rproj$")
+  usethis::ui_done("Dehydrating {usethis::ui_path(x)}")
   file_move(
     x,
     path_ext_set(path_ext_remove(x), "dehydrated_Rproj")
@@ -39,6 +44,7 @@ dehydrate_rproj <- function(dir) {
 #' @export
 rehydrate_rproj <- function(dir) {
   x <- dir_ls(dir, regexp = "dehydrated_Rproj$")
+  usethis::ui_done("Rehydrating {usethis::ui_path(x)}")
   file_move(
     x,
     path_ext_set(path_ext_remove(x), "Rproj")
