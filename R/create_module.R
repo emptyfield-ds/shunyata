@@ -26,6 +26,7 @@ create_module <- function(module_dir, module_title, module_subtitle = "", includ
   usethis::with_project(path_dir(module_dir), {
     module_data <- list(module_title = module_title)
     use_course_template("slides.Rmd", path(path_file(module_dir), paste0(path_file(module_dir), ".Rmd")), data = c(module_data, module_subtitle = module_subtitle))
+    usethis::use_github_file("malcolmbarrett/kakashi", path = "kakashi.css", save_as = "theme.css")
     if (include_exercises) use_course_template("exercises.Rmd", path(path_file(module_dir), "exercises.Rmd"), data = module_data)
     if (include_solutions) use_course_template("solutions.Rmd", path(path_file(module_dir), "solutions.Rmd"), data = module_data)
     if (include_img) dir_create(path(path_file(module_dir), "img"))
