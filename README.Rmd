@@ -23,9 +23,14 @@ The goal of shunyata is to easily deploy Empty Field course materials
 
 ## Installation
 
-You can install the development of shunyata  version from [GitHub](https://github.com/) with:
+You can install the laterst version of shunyata:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("emptyfield-ds/shunyata")
+options(repos = c(
+  emptyfieldds = "https://emptyfield-ds.r-universe.dev",
+  CRAN = "https://cran.rstudio.com/"
+))
+
+install.packages("shunyata")
 ```
+
