@@ -23,7 +23,7 @@ The goal of shunyata is to easily deploy Empty Field course materials
 
 ## Installation
 
-You can install the laterst version of shunyata:
+You can install the latest version of shunyata:
 
 ``` r
 options(repos = c(
