@@ -14,7 +14,7 @@
 #' @export
 sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "kakashi.css", "solutions.Rmd"), rm_dir = c("img", "libs"), overwrite = FALSE, build_slides = TRUE, rmd_name = NULL) {
   usethis::ui_done("Copying {usethis::ui_path(module)} to temporary directory")
-  dir <- file_temp("sanitize_")
+  dir <- path_temp("sanitize", path_file(module))
   withr::defer(dir_delete(dir))
   if (!dir_exists(dir)) dir_create(dir)
   temp_module <- dir_copy(module, dir, overwrite = overwrite)

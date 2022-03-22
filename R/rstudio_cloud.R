@@ -29,3 +29,21 @@ rsc_archive_course <- function(space_id, rsc_user_id = getOption("shunyata.rsc_u
 
   invisible(space_id)
 }
+
+#' Zip modules to upload to RStudio Cloud
+#'
+#' `zip_modules()` zips modules in a directory for upload to RStudio Cloud, e.g.
+#' the `mastering_r_for_epi` repository.
+#'
+#' @return invisibly, a vector of directories
+#' @export
+zip_modules <- function() {
+  dirs <- dir_ls(type = "directory")
+  purrr::walk(dirs, zip_module)
+}
+
+zip_module <- function(.x) {
+  withr::local_dir(.x)
+  usethis::ui_done("Zipping {usethis::ui_path(.x)}")
+  zip::zip(fs::path_ext_set(.x, ".zip"), fs::dir_ls())
+}

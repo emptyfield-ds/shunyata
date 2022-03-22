@@ -38,10 +38,22 @@ path_warehouse <- function(...) {
 clone_module <- function(temp_dir) {
   usethis::ui_done("Cloning from GitHub")
   module <- path_file(temp_dir)
-  suppressMessages(gert::git_clone(
+  dir <- suppressMessages(gert::git_clone(
     glue::glue("https://github.com/emptyfield-ds/{module}.git"),
     path = temp_dir
   ))
+
+  sanitize_files <- c(
+    dir_ls(dir, regexp = "sanitize"),
+    dir_ls(dir, regexp = "cheatsheet_rmarkdown-2.0"),
+    dir_ls(dir, regexp = "cheatsheet_data-visualization-2.1")
+  )
+  if (length(sanitize_files) > 0) {
+    usethis::ui_done("Deleting outdated files")
+    file_delete(sanitize_files)
+  }
+
+  dir
 }
 
 commit_changes <- function(repo) {

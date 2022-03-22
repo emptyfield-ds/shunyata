@@ -26,7 +26,8 @@ Imports:
     usethis,
     utils,
     withr,
-    xaringanBuilder (>= 0.0.9)
+    xaringanBuilder (>= 0.0.9),
+    zip
 Remotes: 
     jhelvy/xaringanBuilder,
     rstudio/rscloud
