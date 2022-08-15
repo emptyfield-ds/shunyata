@@ -28,7 +28,7 @@ render_slides <- function(dir, rmd_name = NULL, render = TRUE) {
 
   usethis::ui_done("Rendering {usethis::ui_path('slides.pdf')}")
   pdf_name <- suppressMessages(
-    xaringanBuilder::build_pdf(html_name, path(dir, "slides.pdf"))
+    renderthis::to_pdf(html_name, path(dir, "slides.pdf"))
   )
 
   invisible(pdf_name)

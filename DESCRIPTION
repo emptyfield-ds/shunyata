@@ -17,6 +17,7 @@ Imports:
     glue,
     magrittr,
     purrr,
+    renderthis (>= 0.1.0),
     renv,
     rmarkdown,
     rscloud (>= 0.0.0.9002),
@@ -26,10 +27,9 @@ Imports:
     usethis,
     utils,
     withr,
-    xaringanBuilder (>= 0.0.9),
     zip
 Remotes: 
-    jhelvy/xaringanBuilder,
+    jhelvy/renderthis,
     rstudio/rscloud
 Config/testthat/edition: 3
 Encoding: UTF-8
