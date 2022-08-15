@@ -4,7 +4,10 @@
 \alias{rsc_archive_course}
 \title{Archive an RStudio Cloud Course}
 \usage{
-rsc_archive_course(space_id, rsc_user_id = getOption("shunyata.rsc_user_id"))
+rsc_archive_course(
+  space_id,
+  rsc_user_id = getOption("shunyata.rscloud_user_id")
+)
 }
 \arguments{
 \item{space_id}{The RStudio Cloud space ID}
