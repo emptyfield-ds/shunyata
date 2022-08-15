@@ -8,8 +8,8 @@
 #'
 #' @return Invisibly, the course ID
 #' @export
-rsc_archive_course <- function(space_id, rsc_user_id = getOption("shunyata.rsc_user_id")) {
-  if (!is.null(rsc_user_id)) {
+rsc_archive_course <- function(space_id, rsc_user_id = getOption("shunyata.rscloud_user_id")) {
+  if (is.null(rsc_user_id)) {
     usethis::ui_stop("{usethis::ui_code('rsc_user_id')} not found")
   }
 
@@ -17,7 +17,6 @@ rsc_archive_course <- function(space_id, rsc_user_id = getOption("shunyata.rsc_u
   course %>%
     rscloud::space_member_list() %>%
     dplyr::filter(.data$user_id != rsc_user_id) %>%
-    dplyr::pull(.data$user_id) %>%
     rscloud::space_member_remove(
       space = course,
       users = .,
