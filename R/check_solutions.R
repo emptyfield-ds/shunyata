@@ -8,7 +8,7 @@
 #' @export
 check_solutions <- function(.file = NULL) {
   if (is.null(.file)) {
-    .file <- fs::dir_ls(regexp = "Rmd$", recurse = TRUE, type = "file")
+    .file <- fs::dir_ls(regexp = "qmd$", recurse = TRUE, type = "file")
   }
 
   expect_error_free(purrr::walk(.file, render_temp))
@@ -46,11 +46,9 @@ render_temp <- function(.file) {
   withr::defer(fs::dir_delete(.temp_path))
   fs::dir_create(.temp_path)
 
-  rmarkdown::render(
+  quarto::quarto_render(
     .file,
     output_file = fs::path(.temp_path, .file_name),
-    intermediates_dir = .temp_path,
-    quiet = TRUE,
-    envir = new.env()
+    quiet = TRUE
   )
 }

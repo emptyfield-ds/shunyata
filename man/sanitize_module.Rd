@@ -7,11 +7,11 @@
 sanitize_module(
   module,
   new_path = NULL,
-  rm_files = c("theme.css", "kakashi.css", "solutions.Rmd"),
-  rm_dir = c("img", "libs"),
+  rm_files = c("theme.css", "kakashi.css", "solutions.qmd"),
+  rm_dir = c("img", "libs", "_extensions"),
   overwrite = FALSE,
   build_slides = TRUE,
-  rmd_name = NULL
+  qmd_name = NULL
 )
 }
 \arguments{
@@ -27,8 +27,8 @@ sanitize_module(
 
 \item{build_slides}{Logical. Render the slides?}
 
-\item{rmd_name}{The name of Rmd file. By default, assumes that it is the same
-as \code{dir} with a \code{.Rmd} extension.}
+\item{qmd_name}{The name of Quarto file. By default, assumes that it is the same
+as \code{dir} with a \code{.qmd} extension.}
 }
 \value{
 invisibly, the path of the new module

@@ -4,15 +4,15 @@
 \alias{render_slides}
 \title{Render Module Slides}
 \usage{
-render_slides(dir, rmd_name = NULL, render = TRUE)
+render_slides(dir, qmd_name = NULL, render = TRUE)
 }
 \arguments{
 \item{dir}{The directory where the module is located}
 
-\item{rmd_name}{The name of Rmd file. By default, assumes that it is the same
-as \code{dir} with a \code{.Rmd} extension.}
+\item{qmd_name}{The name of Quarto file. By default, assumes that it is the same
+as \code{dir} with a \code{.qmd} extension.}
 
-\item{render}{Logical. Knit the Rmd file?}
+\item{render}{Logical. Render the Quarto file?}
 }
 \value{
 Invisibly, the path to the rendered PDF

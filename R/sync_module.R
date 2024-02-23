@@ -43,15 +43,9 @@ clone_module <- function(temp_dir) {
     path = temp_dir
   ))
 
-  sanitize_files <- c(
-    dir_ls(dir, regexp = "sanitize"),
-    dir_ls(dir, regexp = "cheatsheet_rmarkdown-2.0"),
-    dir_ls(dir, regexp = "cheatsheet_data-visualization-2.1")
-  )
-  if (length(sanitize_files) > 0) {
-    usethis::ui_done("Deleting outdated files")
-    file_delete(sanitize_files)
-  }
+  usethis::ui_done("Deleting files and directories")
+  dir_delete(dir_ls(dir, type = "directory"))
+  file_delete(dir_ls(dir, type = "file"))
 
   dir
 }

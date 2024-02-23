@@ -12,7 +12,7 @@
 #'
 #' @return invisibly, the path of the new module
 #' @export
-sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "kakashi.css", "solutions.Rmd"), rm_dir = c("img", "libs"), overwrite = FALSE, build_slides = TRUE, rmd_name = NULL) {
+sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "kakashi.css", "solutions.qmd"), rm_dir = c("img", "libs", "_extensions"), overwrite = FALSE, build_slides = TRUE, qmd_name = NULL) {
   usethis::ui_done("Copying {usethis::ui_path(module)} to temporary directory")
   dir <- path_temp("sanitize", path_file(module))
   withr::defer(dir_delete(dir))
@@ -20,15 +20,18 @@ sanitize_module <- function(module, new_path = NULL, rm_files = c("theme.css", "
   temp_module <- dir_copy(module, dir, overwrite = overwrite)
 
   if (build_slides) {
-    if (is.null(rmd_name)) rmd_name <- path_ext_set(path(temp_module, path_file(module)), "Rmd")
-    render_slides(temp_module, rmd_name = rmd_name)
+    if (dir_exists("_extensions")) {
+      dir_copy("_extensions", dir)
+    }
+    if (is.null(qmd_name)) qmd_name <- path_ext_set(path(temp_module, path_file(module)), "qmd")
+    render_slides(temp_module, qmd_name = qmd_name)
   }
 
   usethis::ui_done("Sanitizing {usethis::ui_path(path_file(module))}")
 
   # remove files
   clean_module <- path_file(module)
-  rm_files <- c(paste0(clean_module, ".Rmd"), paste0(clean_module, ".html"), rm_files)
+  rm_files <- c(paste0(clean_module, ".qmd"), paste0(clean_module, ".html"), rm_files)
   rm_files <- stringr::str_remove(rm_files, "^[0-9]+-")
   purrr::walk(rm_files, file_delete_safe, temp_module)
 

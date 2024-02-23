@@ -5,8 +5,8 @@
 #' @param module_dir The directory name. Also the file name of the slides file.
 #' @param module_title The title of the module
 #' @param module_subtitle The subtitle of the module
-#' @param include_exercises Include `exercises.Rmd`?
-#' @param include_solutions  Include `solutions.Rmd`?
+#' @param include_exercises Include `exercises.qmd`?
+#' @param include_solutions  Include `solutions.qmd`?
 #' @param include_img Include an `img/` folder?
 #'
 #' @return `module_dir`, invisibly.
@@ -25,10 +25,10 @@ create_module <- function(module_dir, module_title, module_subtitle = "", includ
   dir_create(module_dir)
   usethis::with_project(path_dir(module_dir), {
     module_data <- list(module_title = module_title)
-    use_course_template("slides.Rmd", path(path_file(module_dir), paste0(path_file(module_dir), ".Rmd")), data = c(module_data, module_subtitle = module_subtitle))
+    use_course_template("slides.qmd", path(path_file(module_dir), paste0(path_file(module_dir), ".qmd")), data = c(module_data, module_subtitle = module_subtitle))
     usethis::use_github_file("malcolmbarrett/kakashi", path = "kakashi.css", save_as = "theme.css")
-    if (include_exercises) use_course_template("exercises.Rmd", path(path_file(module_dir), "exercises.Rmd"), data = module_data)
-    if (include_solutions) use_course_template("solutions.Rmd", path(path_file(module_dir), "solutions.Rmd"), data = module_data)
+    if (include_exercises) use_course_template("exercises.qmd", path(path_file(module_dir), "exercises.qmd"), data = module_data)
+    if (include_solutions) use_course_template("solutions.qmd", path(path_file(module_dir), "solutions.qmd"), data = module_data)
     if (include_img) dir_create(path(path_file(module_dir), "img"))
   }, force = TRUE)
 

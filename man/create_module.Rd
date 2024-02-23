@@ -20,9 +20,9 @@ create_module(
 
 \item{module_subtitle}{The subtitle of the module}
 
-\item{include_exercises}{Include \code{exercises.Rmd}?}
+\item{include_exercises}{Include \code{exercises.qmd}?}
 
-\item{include_solutions}{Include \code{solutions.Rmd}?}
+\item{include_solutions}{Include \code{solutions.qmd}?}
 
 \item{include_img}{Include an \verb{img/} folder?}
 }

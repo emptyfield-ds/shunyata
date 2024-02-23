@@ -17,9 +17,9 @@ Imports:
     glue,
     magrittr,
     purrr,
+    quarto,
     renderthis (>= 0.1.0),
     renv,
-    rmarkdown,
     rscloud (>= 0.0.0.9002),
     shiny,
     stringr,
@@ -34,4 +34,4 @@ Remotes:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
