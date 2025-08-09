@@ -59,7 +59,7 @@ commit_changes <- function(repo) {
     return(invisible())
   }
   
-  usethis::ui_done("Commiting and pushing changes")
+  usethis::ui_done("Committing and pushing changes")
   suppressMessages(gert::git_add(".", repo = repo))
   suppressMessages(
     gert::git_commit(glue("Render module: {Sys.time()}"), repo = repo)
