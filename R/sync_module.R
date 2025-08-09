@@ -55,7 +55,7 @@ commit_changes <- function(repo) {
   status <- gert::git_status(repo = repo)
   
   if (nrow(status) == 0) {
-    usethis::ui_info("No changes to commit. Module is already up to date")
+    usethis::ui_info("No changes to commit. Module is already up-to-date")
     return(invisible())
   }
   
