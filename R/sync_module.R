@@ -51,6 +51,14 @@ clone_module <- function(temp_dir) {
 }
 
 commit_changes <- function(repo) {
+  # Check if there are any changes
+  status <- gert::git_status(repo = repo)
+  
+  if (nrow(status) == 0) {
+    usethis::ui_info("No changes to commit. Module is already up to date")
+    return(invisible())
+  }
+  
   usethis::ui_done("Commiting and pushing changes")
   suppressMessages(gert::git_add(".", repo = repo))
   suppressMessages(
