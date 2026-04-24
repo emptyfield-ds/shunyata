@@ -61,7 +61,11 @@ handle_rstudio_proj <- function(module_dir) {
   } else if (!has_rproj(module_dir)) {
     old_proj <- usethis::proj_set(module_dir, force = TRUE)
     withr::defer(usethis::proj_set(old_proj))
-    usethis::use_rstudio()
+    use_course_template(
+      "module.Rproj",
+      save_as = paste0(path_file(module_dir), ".Rproj")
+    )
+    usethis::use_git_ignore(".Rproj.user")
   }
 
   invisible()
